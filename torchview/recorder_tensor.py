@@ -53,6 +53,7 @@ class Recorder:
             setattr(
                 torch, name, creation_ops_wrapper(op, self.model_graph)
             )
+            print(f'Wrapped {name} successfully {op}')
 
     def __exit__(self, exc_type: Any, exc_value: Any, exc_traceback: Any) -> None:
         # reset module __call__ back to original method and torch creation ops
@@ -116,6 +117,10 @@ def module_forward_wrapper(model_graph: ComputationGraph) -> Callable[..., Any]:
             mod, cur_depth, input_nodes,  # type: ignore[arg-type]
             name=type(mod).__name__
         )
+
+        # set input of module node
+        cur_node.set_input(args, kwargs)
+
         cur_node.set_input_shape(
             reduce_data_info([args, kwargs], collect_shape, [])
         )
@@ -256,6 +261,10 @@ class RecorderTensor(torch.Tensor):
         cur_node = FunctionNode(
             func, cur_depth, args_nodes, name=func_name  # type: ignore[arg-type]
         )
+
+        # set input of function node
+        cur_node.set_input(args, kwargs)
+        print(f'{func_name} {types}')
 
         for i in args_nodes:
             i.add_child(cur_node)

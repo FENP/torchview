@@ -72,6 +72,11 @@ class ModuleNode(Node):
         self.output_nodes = NodeContainer() if output_nodes is None else output_nodes
         self.set_node_id()
 
+        self.module_unit = module_unit
+
+    def set_input(self, args, kwargs) -> None:
+        self.input = (args, kwargs)
+
     def set_input_shape(self, input_shape: list[Tuple[int, ...]]) -> None:
         self.input_shape = input_shape
 
@@ -121,6 +126,11 @@ class FunctionNode(Node):
         self.set_node_id()
         self.output_nodes = self.children
 
+        self.function_unit = function_unit
+    
+    def set_input(self, args, kwargs) -> None:
+        self.input = (args, kwargs)
+    
     def set_input_shape(self, input_shape: list[Tuple[int, ...]]) -> None:
         self.input_shape = input_shape
 

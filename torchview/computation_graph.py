@@ -380,7 +380,7 @@ class ComputationGraph:
                 label = f'''<
                     <TABLE BORDER="{border}" CELLBORDER="{cell_bor}"
                     CELLSPACING="{cell_sp}" CELLPADDING="{cell_pad}">
-                        <TR><TD>{node.name}<BR/>depth:{node.depth}</TD><TD>{node.tensor_shape}</TD></TR>
+                        <TR><TD>{node.name}<BR/>depth:{node.depth}<BR/>id:{str(self.id_dict[node.node_id])}</TD><TD>{node.tensor_shape}</TD></TR>
                     </TABLE>>'''
             else:
                 input_repr = compact_list_repr(node.input_shape)
@@ -389,7 +389,7 @@ class ComputationGraph:
                     <TABLE BORDER="{border}" CELLBORDER="{cell_bor}"
                     CELLSPACING="{cell_sp}" CELLPADDING="{cell_pad}">
                     <TR>
-                        <TD ROWSPAN="2">{node.name}<BR/>depth:{node.depth}</TD>
+                        <TD ROWSPAN="2">{node.name}<BR/>depth:{node.depth}<BR/>id:{str(self.id_dict[node.node_id])}</TD>
                         <TD COLSPAN="2">{input_str}:</TD>
                         <TD COLSPAN="2">{input_repr} </TD>
                     </TR>
@@ -402,7 +402,7 @@ class ComputationGraph:
             label = f'''<
                     <TABLE BORDER="{border}" CELLBORDER="{cell_bor}"
                     CELLSPACING="{cell_sp}" CELLPADDING="{cell_pad}">
-                        <TR><TD>{node.name}<BR/>depth:{node.depth}</TD></TR>
+                        <TR><TD>{node.name}<BR/>depth:{node.depth}<BR/>id:{str(self.id_dict[node.node_id])}</TD></TR>
                     </TABLE>>'''
         return label
 
